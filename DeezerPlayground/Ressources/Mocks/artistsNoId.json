@@ -1,0 +1,32 @@
+{
+    "data": [{
+        "id": null,
+        "name": "D.F.A.",
+        "link": "http:\/\/www.deezer.com\/artist\/160002",
+        "picture": "http:\/\/api.deezer.com\/artist\/160002\/image",
+        "picture_small": "http:\/\/e-cdn-images.deezer.com\/images\/artist\/\/56x56-000000-80-0-0.jpg",
+        "picture_medium": "http:\/\/e-cdn-images.deezer.com\/images\/artist\/\/250x250-000000-80-0-0.jpg",
+        "picture_big": "http:\/\/e-cdn-images.deezer.com\/images\/artist\/\/500x500-000000-80-0-0.jpg",
+        "picture_xl": "http:\/\/e-cdn-images.deezer.com\/images\/artist\/\/1000x1000-000000-80-0-0.jpg",
+        "nb_album": 4,
+        "nb_fan": 108,
+        "radio": false,
+        "tracklist": "http:\/\/api.deezer.com\/artist\/160002\/top?limit=50",
+        "type": "artist"
+    }, {
+        "id": 10,
+        "name": "D.F.A.",
+        "link": "http:\/\/www.deezer.com\/artist\/160002",
+        "picture": "http:\/\/api.deezer.com\/artist\/160002\/image",
+        "picture_small": "http:\/\/e-cdn-images.deezer.com\/images\/artist\/\/56x56-000000-80-0-0.jpg",
+        "picture_medium": "http:\/\/e-cdn-images.deezer.com\/images\/artist\/\/250x250-000000-80-0-0.jpg",
+        "picture_big": "http:\/\/e-cdn-images.deezer.com\/images\/artist\/\/500x500-000000-80-0-0.jpg",
+        "picture_xl": "http:\/\/e-cdn-images.deezer.com\/images\/artist\/\/1000x1000-000000-80-0-0.jpg",
+        "nb_album": 4,
+        "nb_fan": 108,
+        "radio": false,
+        "tracklist": "http:\/\/api.deezer.com\/artist\/160002\/top?limit=50",
+        "type": "artist"
+    }],
+    "total": 42
+}

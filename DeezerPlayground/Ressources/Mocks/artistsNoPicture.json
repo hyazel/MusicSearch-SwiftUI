@@ -1,0 +1,13 @@
+{
+    "data": [{
+        "id": 10,
+        "name": "D.F.A.",
+        "link": "http:\/\/www.deezer.com\/artist\/160002",
+        "nb_album": 4,
+        "nb_fan": 108,
+        "radio": false,
+        "tracklist": "http:\/\/api.deezer.com\/artist\/160002\/top?limit=50",
+        "type": "artist"
+    }],
+	"total": 42
+}
