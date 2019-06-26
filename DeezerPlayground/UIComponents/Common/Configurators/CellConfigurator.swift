@@ -7,25 +7,19 @@
 //
 
 import UIKit
+import SwiftUI
 
 struct CellConfiguratorTitleSubtitleImage<Model> {
     let titleKeyPath: KeyPath<Model, String>
     let subtitleKeyPath: KeyPath<Model, String>
     let imageKeyPath: KeyPath<Model, UIImage>
-    
-    func configure(model: Model) {
-        print(model[keyPath: titleKeyPath])
-        print(model[keyPath: subtitleKeyPath])
-        print(model[keyPath: imageKeyPath])
-    }
 }
 
 struct CellConfiguratorTitleImage<Model> {
     let titleKeyPath: KeyPath<Model, String>
-    let imageKeyPath: KeyPath<Model, UIImage>
-    
-    func configure(model: Model) {
-        print(model[keyPath: titleKeyPath])
-        print(model[keyPath: imageKeyPath])
-    }
+    let imageUrlKeyPath: KeyPath<Model, URL?>
+}
+
+struct CellConfiguratorTitle<Model> {
+    let titleKeyPath: KeyPath<Model, String>
 }

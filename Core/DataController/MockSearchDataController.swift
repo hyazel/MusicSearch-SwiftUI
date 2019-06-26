@@ -7,8 +7,24 @@
 //
 
 import Foundation
+import Combine
 
 public class MockSearchDataController: SearchDataControlleable {
+    public func getAlbums(artistId: Int) -> AnyPublisher<[DeezerAlbum], Error> {
+        let p = PassthroughSubject<[DeezerAlbum], Error>()
+        return p.eraseToAnyPublisher()
+    }
+    
+    public func getTracks(albumId: Int) -> AnyPublisher<[DeezerTrack], Error> {
+        let p = PassthroughSubject<[DeezerTrack], Error>()
+        return p.eraseToAnyPublisher()
+    }
+    
+    public func getArtists(name: String) -> AnyPublisher<[DeezerArtist], Error> {
+        let p = PassthroughSubject<[DeezerArtist], Error>()
+        return p.eraseToAnyPublisher()
+    }
+    
     public enum MockType: String {
         case artists = "artists"
         case artistsNoId = "artistsNoId"

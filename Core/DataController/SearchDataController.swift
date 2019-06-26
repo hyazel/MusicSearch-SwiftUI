@@ -8,14 +8,16 @@
 
 import Foundation
 import LDNetwork
+import Combine
 
 public protocol SearchDataControlleable {
-    func getArtists(name: String, completion: @escaping (Result<[DeezerArtist], Error>) -> Void)
-//    func getAlbum(artistId: Int, completion: @escaping (Result<[DeezerAlbum], Error>) -> Void)
-    func getTrack(albumId: Int, completion: @escaping (Result<[DeezerTrack], Error>) -> Void)
+    func getArtists(name: String) -> AnyPublisher<[DeezerArtist], Error>
+    func getAlbums(artistId: Int) -> AnyPublisher<[DeezerAlbum], Error>
+    func getTracks(albumId: Int) -> AnyPublisher<[DeezerTrack], Error>
 }
 
 public final class SearchDataController: SearchDataControlleable {
+    
     private let client: APIClient
 
     public init(client: APIClient) {
@@ -24,42 +26,53 @@ public final class SearchDataController: SearchDataControlleable {
 }
 
 extension SearchDataController {
-    public func getArtists(name: String, completion: @escaping (Result<[DeezerArtist], Error>) -> Void) {
-        client.send(ArtistSearchRequest(artist: name)) { (result) in
+    public func getArtists(name: String) -> AnyPublisher<[DeezerArtist], Error> {
+        let p = PassthroughSubject<[DeezerArtist], Error>()
+        client.send(ArtistSearchRequest(artist: name)) { result in
             switch result {
             case .success(let response):
                 DispatchQueue.main.async {
-                    completion(.success(response.data.compactMap {$0} ))
+                    return p.send(response.data.compactMap { $0 })
                 }
             case .failure(let failure):
-                completion(.failure(failure))
+                p.send(completion: Subscribers.Completion<Error>.failure(failure))
             }
         }
+        return p.eraseToAnyPublisher()
     }
-
-//    public func getAlbum(artistId: Int, completion: @escaping (Result<[DeezerAlbum], Error>) -> Void) {
-//        client.send(AlbumRequest(artistId: artistId)) { (result) in
-//            switch result {
-//            case .success(let response):
-//                DispatchQueue.main.async {
-//                    completion(.success(response.data))
-//                }
-//            case .failure(let failure):
-//                completion(.failure(failure))
-//            }
-//        }
-//    }
-
-    public func getTrack(albumId: Int, completion: @escaping (Result<[DeezerTrack], Error>) -> Void) {
+    
+    public func getAlbums(artistId: Int) -> AnyPublisher<[DeezerAlbum], Error> {
+        let p = PassthroughSubject<[DeezerAlbum], Error>()
+        
+        client.send(AlbumRequest(artistId: artistId)) { (result) in
+            switch result {
+            case .success(let response):
+                DispatchQueue.main.async {
+                    return p.send(response.data)
+                }
+            case .failure(let failure):
+                p.send(completion: Subscribers.Completion<Error>.failure(failure))
+            }
+        }
+        
+        return p.eraseToAnyPublisher()
+    }
+    
+    public func getTracks(albumId: Int) -> AnyPublisher<[DeezerTrack], Error> {
+        let p = PassthroughSubject<[DeezerTrack], Error>()
+        
         client.send(TracksRequest(albumId: albumId)) { (result) in
             switch result {
             case .success(let response):
                 DispatchQueue.main.async {
-                    completion(.success(response.data))
+                    p.send(response.data)
                 }
             case .failure(let failure):
-                completion(.failure(failure))
+                print(failure)
+                p.send(completion: Subscribers.Completion<Error>.failure(failure))
             }
         }
+        
+        return p.eraseToAnyPublisher()
     }
 }

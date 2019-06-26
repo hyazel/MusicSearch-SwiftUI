@@ -20,7 +20,7 @@ struct ArtistCellViewModel: Identifiable {
 final class ArtistSearchViewModel: BindableObject {
 
     private let dependencies: ArtistSearchDependencies
-
+    private var cancellable: Cancellable?
     // Input
     var searchBarInput: String = "" {
         didSet {
@@ -30,7 +30,7 @@ final class ArtistSearchViewModel: BindableObject {
 
     // Output
     let didChange = PassthroughSubject<Void, Never>()
-    var artistsCellViewModel: [ArtistCellViewModel] = [] {
+    private(set) var artistsCellViewModel: [ArtistCellViewModel] = [] {
         didSet {
             didChange.send()
         }
@@ -44,17 +44,11 @@ final class ArtistSearchViewModel: BindableObject {
 // MARK: search artist ws call
 private extension ArtistSearchViewModel {
     func searchArtist(text: String) {
-        dependencies.searchDataController
-            .getArtists(name: text) { [weak self] (result) in
-                guard let self = self else { return }
-                switch result {
-                case .success(let artists):
-                    if self.searchBarInput == "" { return }
-                    self.artistsCellViewModel = self.buildAlbumCellViewModel(from: artists)
-                case .failure:
-                    print("TODO")
-                }
-        }
+        cancellable = dependencies.searchDataController
+            .getArtists(name: text)
+            .replaceError(with: [])
+            .map { self.buildAlbumCellViewModel(from: $0) }
+            .assign(to: \.artistsCellViewModel, on: self)
     }
 }
 
