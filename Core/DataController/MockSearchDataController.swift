@@ -11,18 +11,55 @@ import Combine
 
 public class MockSearchDataController: SearchDataControlleable {
     public func getAlbums(artistId: Int) -> AnyPublisher<[DeezerAlbum], Error> {
-        let p = PassthroughSubject<[DeezerAlbum], Error>()
-        return p.eraseToAnyPublisher()
+        let bundle = Bundle(for: type(of: self))
+        let mockUrl = bundle.url(forResource: mockType.rawValue, withExtension: "json")
+        if let url = mockUrl {
+            do {
+                let data = try Data(contentsOf: url)
+                let decoder = JSONDecoder()
+                let jsonData = try decoder.decode(GetAlbumResponse.self, from: data)
+                
+                return Publishers.Once(jsonData.data).eraseToAnyPublisher() //.replaceError(with: []).eraseToAnyPublisher()
+            } catch {
+                return Publishers.Once([]).eraseToAnyPublisher()
+            }
+        } else {
+            return Publishers.Once([]).eraseToAnyPublisher()
+        }
     }
     
     public func getTracks(albumId: Int) -> AnyPublisher<[DeezerTrack], Error> {
-        let p = PassthroughSubject<[DeezerTrack], Error>()
-        return p.eraseToAnyPublisher()
+        let bundle = Bundle(for: type(of: self))
+        let mockUrl = bundle.url(forResource: "tracks", withExtension: "json")
+        if let url = mockUrl {
+            do {
+                let data = try Data(contentsOf: url)
+                let decoder = JSONDecoder()
+                let jsonData = try decoder.decode(GetTrackResponse.self, from: data)
+                return Publishers.Once(jsonData.data).eraseToAnyPublisher()
+            } catch {
+                return Publishers.Once([]).eraseToAnyPublisher()
+            }
+        } else {
+            return Publishers.Once([]).eraseToAnyPublisher()
+        }
     }
     
     public func getArtists(name: String) -> AnyPublisher<[DeezerArtist], Error> {
-        let p = PassthroughSubject<[DeezerArtist], Error>()
-        return p.eraseToAnyPublisher()
+        let bundle = Bundle(for: type(of: self))
+        let mockUrl = bundle.url(forResource: mockType.rawValue, withExtension: "json")
+        if let url = mockUrl {
+            do {
+                let data = try Data(contentsOf: url)
+                let decoder = JSONDecoder()
+                let jsonData = try decoder.decode(GetSearchArtistResponse.self, from: data)
+                return Publishers.Once(jsonData.data.compactMap { $0 }).eraseToAnyPublisher()
+            } catch {
+                return Publishers.Once([]).eraseToAnyPublisher()
+            }
+        } else {
+            return Publishers.Once([]).eraseToAnyPublisher()
+        }
     }
     
     public enum MockType: String {
@@ -38,58 +75,5 @@ public class MockSearchDataController: SearchDataControlleable {
 
     public init(mockType: MockType) {
         self.mockType = mockType
-    }
-    
-    public func getAlbum(artistId: Int, completion: @escaping (Result<[DeezerAlbum], Error>) -> Void) {
-        let bundle = Bundle(for: type(of: self))
-        let mockUrl = bundle.url(forResource: mockType.rawValue, withExtension: "json")
-        if let url = mockUrl {
-            do {
-                let data = try Data(contentsOf: url)
-                let decoder = JSONDecoder()
-                let jsonData = try decoder.decode(GetAlbumResponse.self, from: data)
-                completion(.success(jsonData.data))
-            } catch {
-                completion(.failure(error))
-                print("error")
-            }
-        } else {
-            print("couldn't found json")
-        }
-    }
-
-    public func getTrack(albumId: Int, completion: @escaping (Result<[DeezerTrack], Error>) -> Void) {
-        let bundle = Bundle(for: type(of: self))
-        let mockUrl = bundle.url(forResource: "tracks", withExtension: "json")
-        if let url = mockUrl {
-            do {
-                let data = try Data(contentsOf: url)
-                let decoder = JSONDecoder()
-                let jsonData = try decoder.decode(GetTrackResponse.self, from: data)
-                completion(.success(jsonData.data))
-            } catch {
-                completion(.failure(error))
-                print("error")
-            }
-        } else {
-            print("couldn't found json")
-        }
-    }
-
-    public func getArtists(name: String, completion: @escaping (Result<[DeezerArtist], Error>) -> Void) {
-        let bundle = Bundle(for: type(of: self))
-        let mockUrl = bundle.url(forResource: mockType.rawValue, withExtension: "json")
-        if let url = mockUrl {
-            do {
-                let data = try Data(contentsOf: url)
-                let decoder = JSONDecoder()
-                let jsonData = try decoder.decode(GetSearchArtistResponse.self, from: data)
-                completion(.success(jsonData.data.compactMap { $0 }))
-            } catch {
-                completion(.failure(error))
-            }
-        } else {
-            print("couldn't found json")
-        }
     }
 }

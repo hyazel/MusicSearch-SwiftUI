@@ -8,34 +8,26 @@
 
 import SwiftUI
 
-struct TrackCell: View {
-    let model: TrackCellViewModel
-    
-    var body: some View {
-        Text(model.title)
-    }
-}
-
 struct AlbumDetail : View {
     @ObjectBinding var viewModel: AlbumDetailViewModel
     
     var body: some View {
         NavigationView {
             List {
-                
                 ForEach(viewModel.tracksCellViewModel.identified(by: \.title)) { track in
                     self.buildCell(model: track)
                 }
             }
-            }
-            .navigationBarTitle(Text("Dernier album"))
-            .onAppear(perform: {
-                self.viewModel.getTracksFromFirstAlbum()
-            })
+        }
+        .navigationBarTitle(Text("Dernier album"))
+        .onAppear(perform: {
+            self.viewModel.getTracksFromFirstAlbum()
+        })
     }
 
-    func buildCell(model: TrackCellViewModel) -> TrackCell {
-        return TrackCell(model: model)
+    func buildCell(model: TrackCellViewModel) -> TitleCellView<TrackCellViewModel> {
+        return TitleCellView(model: model,
+                             configurator: CellConfiguratorTitle<TrackCellViewModel>(titleKeyPath: \.title))
     }
 }
 

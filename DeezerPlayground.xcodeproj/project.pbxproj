@@ -22,6 +22,7 @@
 		204A61AF22BD106E00DFD586 /* artists.json in Resources */ = {isa = PBXBuildFile; fileRef = 204A61A922BD106E00DFD586 /* artists.json */; };
 		204A61B022BD106E00DFD586 /* artistsNoPicture.json in Resources */ = {isa = PBXBuildFile; fileRef = 204A61AA22BD106E00DFD586 /* artistsNoPicture.json */; };
 		205CB3AA22C0C6000087FF43 /* ImageModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 205CB3A922C0C6000087FF43 /* ImageModifier.swift */; };
+		2076C30722C3C29B006EE8A8 /* TitleCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2076C30622C3C29B006EE8A8 /* TitleCellView.swift */; };
 		20C7011D22BBB5CD002E6B2E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20C7011C22BBB5CD002E6B2E /* AppDelegate.swift */; };
 		20C7011F22BBB5CD002E6B2E /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20C7011E22BBB5CD002E6B2E /* SceneDelegate.swift */; };
 		20C7012322BBB5D7002E6B2E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 20C7012222BBB5D7002E6B2E /* Assets.xcassets */; };
@@ -132,6 +133,7 @@
 		204A61A922BD106E00DFD586 /* artists.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = artists.json; sourceTree = "<group>"; };
 		204A61AA22BD106E00DFD586 /* artistsNoPicture.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = artistsNoPicture.json; sourceTree = "<group>"; };
 		205CB3A922C0C6000087FF43 /* ImageModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageModifier.swift; sourceTree = "<group>"; };
+		2076C30622C3C29B006EE8A8 /* TitleCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleCellView.swift; sourceTree = "<group>"; };
 		20C7011922BBB5CD002E6B2E /* DeezerPlayground.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DeezerPlayground.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		20C7011C22BBB5CD002E6B2E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		20C7011E22BBB5CD002E6B2E /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -283,6 +285,7 @@
 			isa = PBXGroup;
 			children = (
 				2018C57922C10705006FCFFE /* ImageAndTitleCellView.swift */,
+				2076C30622C3C29B006EE8A8 /* TitleCellView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -720,6 +723,7 @@
 				2018C57F22C10E4A006FCFFE /* AlbumDetailViewModel.swift in Sources */,
 				20C7011D22BBB5CD002E6B2E /* AppDelegate.swift in Sources */,
 				20C7011F22BBB5CD002E6B2E /* SceneDelegate.swift in Sources */,
+				2076C30722C3C29B006EE8A8 /* TitleCellView.swift in Sources */,
 				20C701BE22BBC3A1002E6B2E /* AlbumDetailDependencies.swift in Sources */,
 				20C701CE22BBD364002E6B2E /* CellConfigurator.swift in Sources */,
 				20C701BD22BBC3A1002E6B2E /* ArtistSearchDependencies.swift in Sources */,
