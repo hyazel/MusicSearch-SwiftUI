@@ -8,7 +8,7 @@
 
 import SwiftUI
 
-struct ImageModifierRound:  ViewModifier{
+struct ImageModifierRound:  ViewModifier {
     
     let size: (width: CGFloat, height: CGFloat)
     

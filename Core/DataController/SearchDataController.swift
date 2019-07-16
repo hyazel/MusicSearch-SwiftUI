@@ -7,8 +7,8 @@
 //
 
 import Foundation
-import LDNetwork
 import Combine
+import LDNetwork
 
 public protocol SearchDataControlleable {
     func getArtists(name: String) -> AnyPublisher<[DeezerArtist], Error>
@@ -58,7 +58,7 @@ extension SearchDataController {
     
     public func getTracks(albumId: Int) -> AnyPublisher<[DeezerTrack], Error> {
         
-        return AnyPublisher.init { subscriber in
+        return AnyPublisher { subscriber in
             self.client.send(TracksRequest(albumId: albumId)) { (result) in
                 switch result {
                 case .success(let response):

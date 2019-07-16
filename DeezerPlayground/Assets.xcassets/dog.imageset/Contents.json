@@ -3,6 +3,15 @@
     {
       "idiom" : "universal",
       "filename" : "dog.jpg"
+    },
+    {
+      "idiom" : "universal",
+      "appearances" : [
+        {
+          "appearance" : "luminosity",
+          "value" : "dark"
+        }
+      ]
     }
   ],
   "info" : {
